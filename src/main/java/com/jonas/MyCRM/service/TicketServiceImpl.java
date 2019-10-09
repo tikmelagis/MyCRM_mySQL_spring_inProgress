@@ -1,6 +1,7 @@
 package com.jonas.MyCRM.service;
 
 import com.jonas.MyCRM.labas.Ticket;
+import com.jonas.MyCRM.labas.TicketStatus;
 import com.jonas.MyCRM.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,5 +16,7 @@ public class TicketServiceImpl implements TicketService {
     public void save(Ticket ticket) {
         ticketRepository.save(ticket);
     }
+
+
 
 }

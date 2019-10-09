@@ -56,14 +56,8 @@
                             <td>${lists.getTicketTitle()}</td>
                             <td>${lists.getAssignee()}</td>
                             <td>${lists.getCreatedBy()}</td>
-                            <td>
-                              <c:forEach items="${listsS}" var="listsS">
-                                   <c:if test="${lists.getStatus_id() == listsS.getId()}">
-                                        ${listsS.getStatusName()}
-                                   </c:if>
-                              </c:forEach>
+                            <td>${lists.getStatus().getStatusName()}</td>
 
-                            </td>
                             <td>
                                <sec:authorize access="hasRole('ADMIN')">
                                 <a style = "margin-right:10px;margin-left:10px;" href="${pageContext.request.contextPath }/ticketlist/${lists.getId()}/delete " class="btn-lg btn-danger pull-right">Delete</a>

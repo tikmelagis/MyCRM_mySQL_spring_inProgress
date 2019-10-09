@@ -62,9 +62,11 @@
 
         <spring:bind path="status_id">
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <form:select class="form-control" path="status_id" id="status_id">
+            <form:select class="form-control" path="status_id" id="status">
 
-               <form:options items="${lists}" itemValue="id" itemLabel="statusName"/>
+                <c:forEach var = "lists" items="${lists}">
+                    <option value = "${lists.getId()}">${lists.getStatusName()}</option>
+                </c:forEach>
 
             </form:select>
         </div>

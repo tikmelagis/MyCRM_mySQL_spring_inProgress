@@ -3,6 +3,7 @@ package com.jonas.MyCRM.labas;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -13,6 +14,9 @@ public class Status {
     private Long id;
     private String statusName;
 
+
+    @OneToMany(mappedBy = "status")
+    private List<Ticket> ticket=new ArrayList<>();
 
 
     public Long getId() {
@@ -31,5 +35,11 @@ public class Status {
         this.statusName = statusName;
     }
 
+    public List<Ticket> getTicket() {
+        return ticket;
+    }
 
+    public void setTicket(List<Ticket> ticket) {
+        this.ticket = ticket;
+    }
 }

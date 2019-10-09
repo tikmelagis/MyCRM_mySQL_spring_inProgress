@@ -2,6 +2,7 @@ package com.jonas.MyCRM.web;
 
 import com.jonas.MyCRM.labas.Status;
 import com.jonas.MyCRM.labas.Ticket;
+import com.jonas.MyCRM.labas.TicketStatus;
 import com.jonas.MyCRM.model.Role;
 import com.jonas.MyCRM.model.User;
 import com.jonas.MyCRM.repository.RoleRepository;
@@ -151,7 +152,7 @@ public class UserController {
 
         LinkedList<Status> list=runStatus();
         model.addAttribute("lists", list);
-        model.addAttribute("ticketForm", new Ticket());
+        model.addAttribute("ticketForm", new TicketStatus());
 
         return "ticketcreate";
     }
@@ -160,9 +161,15 @@ public class UserController {
 
 
     @RequestMapping(value = "/ticketcreate", method = RequestMethod.POST)
-    public String ticketCreate(@ModelAttribute("ticketForm") Ticket ticketForm, Model model) {
+    public String ticketCreate(@ModelAttribute("ticketForm") TicketStatus ticketForm, Model model) {
+        Ticket ticket=new Ticket();
+        ticket.setId(ticketForm.getId());
+        ticket.setTicketTitle(ticketForm.getTicketTitle());
+        ticket.setAssignee(ticketForm.getAssignee());
+        ticket.setCreatedBy(ticketForm.getCreatedBy());
+        ticket.setStatus(statusRepository.findOne(ticketForm.getStatus_id()));
 
-        ticketService.save(ticketForm);
+        ticketService.save(ticket);
 
         return "redirect:/ticketlist";
     }
