@@ -46,11 +46,21 @@
 
         <spring:bind path="assignee">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="assignee" class="form-control" placeholder="Assignee"
-                            autofocus="true"></form:input>
+                <form:select class="form-control" path="assignee">
+                    <form:options items="${userlist}" itemValue="username" itemLabel="username"/>
+                </form:select>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="object_id">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:select class="form-control" path="object_id">
+                    <form:options items="${objectlist}" itemValue="id" itemLabel="companyName"/>
+                </form:select>
 
             </div>
         </spring:bind>
+
         <spring:bind path="createdBy">
                     <div class="form-group ${status.error ? 'has-error' : ''}">
                         <form:input type="text" path="createdBy" class="form-control" placeholder="Created By"

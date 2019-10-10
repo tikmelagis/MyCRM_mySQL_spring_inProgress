@@ -14,6 +14,7 @@
         <intercept-url pattern="/updateuser" access="hasAnyRole('ADMIN','SUPERUSER')"/>
         <intercept-url pattern="/ticketcreate" access="hasAnyRole('USER','ADMIN','SUPERUSER')"/>
         <intercept-url pattern="/ticketlist" access="hasAnyRole('USER','ADMIN','SUPERUSER')"/>
+        <intercept-url pattern="/viewTicket" access="hasAnyRole('USER','ADMIN','SUPERUSER')"/>
         <form-login login-page="/login" default-target-url="/welcome"  authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
         <logout logout-success-url="/login?logout" />
     </http>

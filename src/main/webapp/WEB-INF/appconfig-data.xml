@@ -47,13 +47,8 @@
           class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
-    <!-- Enable annotation driven transaction management -->
-    <tx:annotation-driven/>
 
-    <!--
-      Configure Spring Data JPA and set the base package of the
-      repository interfaces
-    -->
+    <tx:annotation-driven/>
 
     <jpa:repositories base-package="com.jonas.MyCRM.repository"/>
 

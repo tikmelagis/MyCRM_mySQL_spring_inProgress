@@ -17,13 +17,14 @@ public class Ticket {
     private String createdBy;
     private String ticketTitle;
 
-    //private Long status_id;
-
 
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
 
+    @ManyToOne
+    @JoinColumn(name = "object_id")
+    private ObjectD objectD;
 
 
 
@@ -60,21 +61,19 @@ public class Ticket {
         this.ticketTitle = ticketTitle;
     }
 
-
-//    public Long getStatus_id() {
-//        return status_id;
-//    }
-//
-//    public void setStatus_id(Long status_id) {
-//        this.status_id = status_id;
-//    }
-
-
     public Status getStatus() {
         return status;
     }
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public ObjectD getObjectD() {
+        return objectD;
+    }
+
+    public void setObjectD(ObjectD objectD) {
+        this.objectD = objectD;
     }
 }
