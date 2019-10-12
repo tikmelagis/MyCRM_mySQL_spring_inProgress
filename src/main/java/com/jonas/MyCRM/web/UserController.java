@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -88,11 +89,13 @@ public class UserController {
 
         LinkedList<User> list = runinam();
         model.addAttribute("lists",list);
+        List<String> listas=runStaff();
+        model.addAttribute("staff",listas);
+
 
 
         return "useris";
     }
-
 
 
     public LinkedList<User> runinam(){
@@ -102,6 +105,17 @@ public class UserController {
         }
         return list;
     }
+    public List<String> runStaff(){
+        ArrayList<String> list=new ArrayList<>();
+        for(User useriss : userRepository.findAll()){
+            list.add(useriss.getStaffPosition());
+        }
+        List<String> listas=new ArrayList<>();
+         listas = list.stream().distinct().collect(Collectors.toList());
+
+        return listas;
+    }
+
 
 
 

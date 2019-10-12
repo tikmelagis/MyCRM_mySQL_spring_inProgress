@@ -8,6 +8,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<jsp:include page="header.jsp" />
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,35 +29,7 @@
 </head>
 <body>
 
-<form:form id="logoutForm" method="POST" action="${contextPath}/logout">
-           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-      </form:form>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">MyCRM</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li><a href="#">Home</a></li>
-      <li><a href="/useris">Users</a></li>
-      <li><a href="/ticketlist">Ticket</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li style="color:white"><a href="#">
-     ${pageContext.request.userPrincipal.name}</a>
-      </li>
-
-      <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></li>
-    </ul>
-  </div>
-</nav>
-
-
-<div class="container">
-
-
-</div>
 <!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>

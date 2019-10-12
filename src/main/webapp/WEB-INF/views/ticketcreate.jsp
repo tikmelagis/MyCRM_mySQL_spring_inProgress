@@ -62,11 +62,7 @@
         </spring:bind>
 
         <spring:bind path="createdBy">
-                    <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="text" path="createdBy" class="form-control" placeholder="Created By"
-                                    autofocus="true"></form:input>
-
-                    </div>
+            <form:hidden path="createdBy" value="${pageContext.request.userPrincipal.name}" />
         </spring:bind>
 
 

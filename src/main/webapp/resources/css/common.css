@@ -1,5 +1,4 @@
 body {
-    padding-top: 40px;
     padding-bottom: 40px;
     background-color: #eee;
 }
@@ -45,4 +44,16 @@ body {
 
 .has-error {
     color: red
+}
+.filter{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+
+}
+.filterTag{
+    width:150px;
+    height: 30px;
+    border: #0f6674 solid 2px ;
 }

@@ -64,7 +64,7 @@
                 <form:option value="">Select Staff Position</form:option>
                 <form:option value="IT">IT</form:option>
                 <form:option value="Vairuotojas">Vairuotojas</form:option>
-                <form:option value="Skambuciu centro darbuotojas">Skambuciu centro darbuotojas</form:option>
+                <form:option value="Call-Center">Skambuciu centro darbuotojas</form:option>
             </form:select>
             </div>
          </spring:bind>

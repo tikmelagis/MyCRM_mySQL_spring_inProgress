@@ -23,21 +23,34 @@
     <title>Tickets</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
     <![endif]-->
 </head>
 <body>
+<script src="${contextPath}/resources/js/filter.js"></script>
+<div class="filter" id="filteris">
+    <input type="text" id="myFilterT" onkeyup="myFilterTitle()" placeholder="Title.." class="filterTag">
+    <input type="text" id="myFilterA" onkeyup="myFilterAssignee()" placeholder="Assignee.." class="filterTag">
+    <input type="text" id="myFilterC" onkeyup="myFilterCreatedBy()" placeholder="Created By.." class="filterTag">
 
-<h2>All Tickets  <button style="float:right;margin-right:20px" type="button" class="btn btn-success" onclick="window.location.href='ticketcreate'">Create Ticket</button> </h2>
+</div>
+<br>
+<h2>All Tickets
+    <div class="btn-group" style="float:right">
+        <button  type="button" class="btn btn-success" onclick="window.location.href='ticketcreate'">Create Ticket</button>
+        <button  type="button" class="btn btn-info" onclick="myFilter()"><i class="fas fa-filter"></i></button>
+    </div>
+</h2>
 
 
 
-
-    <table class="table table-striped table-dark">
+    <table class="table table-striped table-light" id="tableTicket">
       <thead class="thead-dark">
         <tr>
           <th scope="col">ID</th>
@@ -45,6 +58,7 @@
           <th scope="col">Assignee</th>
           <th scope="col">Created By</th>
           <th scope="col">Status</th>
+            <th scope="col"></th>
 
         </tr>
       </thead>
@@ -59,12 +73,14 @@
                             <td>${lists.getStatus().getStatusName()}</td>
 
                             <td>
+                                <div class="btn-group">
                                <sec:authorize access="hasRole('ADMIN')">
-                                <a style = "margin-right:10px;margin-left:10px;" href="${pageContext.request.contextPath }/ticketlist/${lists.getId()}/delete " class="btn-lg btn-danger pull-right">Delete</a>
+                                <button onclick="window.location.href='ticketlist/${lists.getId()}/delete'"  class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                  </sec:authorize>
                                <sec:authorize access="hasAnyRole('ADMIN','SUPERUSER')">
-                                 <a href="${pageContext.request.contextPath }/ticketlist/${lists.getId()}/view" class="btn-lg btn-primary pull-right">View</a>
+                                 <button onclick="window.location.href='ticketlist/${lists.getId()}/view'"  class="btn btn-primary"><i class="fas fa-eye"></i></button>
                                </sec:authorize>
+                                </div>
                             </td>
                        </tr>
 

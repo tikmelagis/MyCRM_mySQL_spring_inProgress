@@ -15,7 +15,7 @@
     <meta name="author" content="">
 
     <title>Welcome</title>
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -29,22 +29,22 @@
            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       </form:form>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">MyCRM</a>
     </div>
-    <ul class="nav navbar-nav">
-      <li><a href="/welcome">Home</a></li>
-      <li><a href="/useris">Users</a></li>
-      <li><a href="/ticketlist">Ticket</a></li>
+    <ul class="navbar-nav mr-auto">
+      <li><a href="/welcome" class="nav-link">Home</a></li>
+      <li><a href="/useris" class="nav-link">Users</a></li>
+      <li><a href="/ticketlist" class="nav-link">Ticket</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li style="color:white"><a href="#">
-     ${pageContext.request.userPrincipal.name}</a>
+      <li style="color:white"><a class="nav-link"><i class="fas fa-user"></i>
+     ${pageContext.request.userPrincipal.name} </a>
       </li>
 
-      <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></li>
+        <li><a href="#" onclick="document.forms['logoutForm'].submit()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout </a></li>
     </ul>
   </div>
 </nav>

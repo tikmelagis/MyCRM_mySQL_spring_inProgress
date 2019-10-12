@@ -18,11 +18,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 
     <title>Welcome</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -31,13 +32,33 @@
     <![endif]-->
 </head>
 <body>
+<div class="filter" id="filteris">
+    <input type="text" id="myFilterUN" onkeyup="myFilterUsername()" placeholder="Username.." class="filterTag">
+    <input type="text" id="myFilterFN" onkeyup="myFilterFirstName()" placeholder="First name.." class="filterTag">
+    <input type="text" id="myFilterLN" onkeyup="myFilterLastName()" placeholder="Last name.." class="filterTag">
+<select class="filterTag" id="myFilterSP" onclick="myFilterStaffPosition()">
+    <option value="">Staff Position</option>
+    <c:forEach items="${staff}" var="staff">
+        <option value="${staff}">${staff}</option>
+    </c:forEach>
+</select>
 
-<h2>All Users  <button style="float:right;margin-right:20px" type="button" class="btn btn-success" onclick="window.location.href='registration'">Create User</button> </h2>
+</div>
+
+<script src="${contextPath}/resources/js/filter.js"></script>
+
+<br>
+<h2>All Users
+    <div class="btn-group" style="float:right">
+    <button  type="button" class="btn btn-success" onclick="window.location.href='registration'">Create User</button>
+    <button  type="button" class="btn btn-info" onclick="myFilter()"><i class="fas fa-filter"></i></button>
+    </div>
+</h2>
 
 
 
 <c:if test="${not empty lists}">
-    <table class="table table-striped table-dark">
+    <table class="table table-striped table-light" id="myTable">
       <thead class="thead-dark">
         <tr>
           <th scope="col">ID</th>
@@ -46,6 +67,7 @@
           <th scope="col">Last Name</th>
           <th scope="col">Staff Position</th>
           <th scope="col">Role</th>
+            <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -72,12 +94,14 @@
                             </td>
 
                             <td>
+                                <div class="btn-group">
                             <sec:authorize access="hasRole('ADMIN')">
-                            <a style = "margin-right:10px;margin-left:10px;" href="${pageContext.request.contextPath }/useris/${lists.getId()}/delete " class="btn-lg btn-danger pull-right">Delete</a>
+                                <button onclick="window.location.href='useris/${lists.getId()}/delete'"  class="btn btn-danger"><i class="fas fa-trash"></i></button>
                             </sec:authorize>
                             <sec:authorize access="hasAnyRole('ADMIN','SUPERUSER')">
-                            <a href="${pageContext.request.contextPath }/useris/${lists.getId()}/update" class="btn-lg btn-primary pull-right">Update</a>
+                                <button onclick="window.location.href='useris/${lists.getId()}/update'"  class="btn btn-primary"><i class="fas fa-edit"></i></button>
                             </sec:authorize>
+                                </div>
                             </td>
 
 
