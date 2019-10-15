@@ -4,11 +4,10 @@ import com.jonas.MyCRM.labas.Status;
 import com.jonas.MyCRM.labas.Ticket;
 import com.jonas.MyCRM.labas.TicketStatus;
 import com.jonas.MyCRM.model.Role;
+import com.jonas.MyCRM.model.StaffPosition;
 import com.jonas.MyCRM.model.User;
-import com.jonas.MyCRM.repository.RoleRepository;
-import com.jonas.MyCRM.repository.StatusRepository;
-import com.jonas.MyCRM.repository.TicketRepository;
-import com.jonas.MyCRM.repository.UserRepository;
+import com.jonas.MyCRM.model.UserTainer;
+import com.jonas.MyCRM.repository.*;
 import com.jonas.MyCRM.service.SecurityService;
 import com.jonas.MyCRM.service.TicketService;
 import com.jonas.MyCRM.service.UserService;
@@ -37,6 +36,8 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
+    @Autowired
+    private StaffRepository staffRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -46,22 +47,31 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
-        model.addAttribute("userForm", new User());
+        model.addAttribute("userForm", new UserTainer());
+        LinkedList<StaffPosition> listStaff=runStaff();
+        model.addAttribute("listStaff",listStaff);
 
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
+    public String registration(@ModelAttribute("userForm") UserTainer userForm, BindingResult bindingResult, Model model) {
 
+        User user=new User();
+        user.setUsername(userForm.getUsername());
+        user.setFirstName(userForm.getFirstName());
+        user.setLastName(userForm.getLastName());
+        user.setPassword(userForm.getPassword());
+        user.setPasswordConfirm(userForm.getPasswordConfirm());
+        user.setRoleChoose(1L);
+        user.setStaffPosition(staffRepository.findOne(userForm.getStaffPosition_id()));
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        userForm.setRoleChoose(1L);
-        userService.save(userForm);
+        userService.save(user);
 
-        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        //securityService.autologin(user.getUsername(), user.getPasswordConfirm());
 
         return "redirect:/useris";
     }
@@ -89,9 +99,8 @@ public class UserController {
 
         LinkedList<User> list = runinam();
         model.addAttribute("lists",list);
-        List<String> listas=runStaff();
-        model.addAttribute("staff",listas);
-
+        LinkedList<StaffPosition> listStaff=runStaff();
+        model.addAttribute("listStaff", listStaff);
 
 
         return "useris";
@@ -105,15 +114,12 @@ public class UserController {
         }
         return list;
     }
-    public List<String> runStaff(){
-        ArrayList<String> list=new ArrayList<>();
-        for(User useriss : userRepository.findAll()){
-            list.add(useriss.getStaffPosition());
+    public LinkedList<StaffPosition> runStaff(){
+        LinkedList<StaffPosition> list=new LinkedList<>();
+        for(StaffPosition staff : staffRepository.findAll()){
+            list.add(staff);
         }
-        List<String> listas=new ArrayList<>();
-         listas = list.stream().distinct().collect(Collectors.toList());
-
-        return listas;
+        return list;
     }
 
 
@@ -130,20 +136,40 @@ public class UserController {
     public String showUpdateUserForm(@PathVariable("id") Long id, Model model) {
 
         User user = userRepository.findById(id);
-        model.addAttribute("userForma", user);
+        UserTainer userTainer=new UserTainer();
+        userTainer.setId(user.getId());
+        userTainer.setUsername(user.getUsername());
+        userTainer.setFirstName(user.getFirstName());
+        userTainer.setLastName(user.getLastName());
+        userTainer.setPassword(user.getPassword());
+        userTainer.setRoleChoose(user.getRoleChoose());
+        userTainer.setStaffPosition_id(user.getStaffPosition().getId());
+
+        model.addAttribute("userForma", userTainer);
+        LinkedList<StaffPosition> listStaff=runStaff();
+        model.addAttribute("listStaff", listStaff);
 
         return "updateuser";
 
     }
 
     @RequestMapping(value = "/useris", method = RequestMethod.POST)
-    public String saveOrUpdateUser(@ModelAttribute("userForma") @Validated User user, BindingResult result, Model model) {
+    public String saveOrUpdateUser(@ModelAttribute("userForma") @Validated UserTainer user, BindingResult result, Model model) {
 
-        Set<Role> rol= new HashSet<>();
-        rol.add(roleRepository.findById(user.getRoleChoose()));
-        user.setRoles(rol);
+        User user1 = new User();
+        user1.setId(user.getId());
+        user1.setUsername(user.getUsername());
+        user1.setFirstName(user.getFirstName());
+        user1.setLastName(user.getLastName());
+        user1.setPassword(user.getPassword());
+        user1.setRoleChoose(user.getRoleChoose());
+        user1.setStaffPosition(userRepository.findById(user.getId()).getStaffPosition());
 
-        userRepository.save(user);
+//        Set<Role> rol= new HashSet<>();
+//        rol.add(roleRepository.findById(user.getRoleChoose()));
+//        user.setRoles(rol);
+
+        userRepository.save(user1);
 
         return "redirect:/useris";
 

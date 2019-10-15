@@ -38,8 +38,8 @@
     <input type="text" id="myFilterLN" onkeyup="myFilterLastName()" placeholder="Last name.." class="filterTag">
 <select class="filterTag" id="myFilterSP" onclick="myFilterStaffPosition()">
     <option value="">Staff Position</option>
-    <c:forEach items="${staff}" var="staff">
-        <option value="${staff}">${staff}</option>
+    <c:forEach items="${listStaff}" var="listStaff">
+        <option value="${listStaff.staffPosition}">${listStaff.staffPosition}</option>
     </c:forEach>
 </select>
 
@@ -78,7 +78,7 @@
                             <td>${lists.getUsername()}</td>
                             <td>${lists.getFirstName()}</td>
                             <td>${lists.getLastName()}</td>
-                            <td>${lists.getStaffPosition()}</td>
+                            <td>${lists.staffPosition.staffPosition}</td>
                             <td>
                             <c:choose>
                                 <c:when test="${lists.getRoleChoose()==1}">

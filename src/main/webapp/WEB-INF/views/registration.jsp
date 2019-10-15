@@ -58,14 +58,11 @@
                     </div>
         </spring:bind>
 
-        <spring:bind path="staffPosition">
-        <div class="form-group ${status.error ? 'has-error' : ''}">
-        <form:select class="form-control" path="staffPosition">
-                <form:option value="">Select Staff Position</form:option>
-                <form:option value="IT">IT</form:option>
-                <form:option value="Vairuotojas">Vairuotojas</form:option>
-                <form:option value="Call-Center">Skambuciu centro darbuotojas</form:option>
-            </form:select>
+        <spring:bind path="staffPosition_id">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:select class="form-control" path="staffPosition_id">
+                    <form:options items="${listStaff}" itemValue="id" itemLabel="staffPosition"/>
+                </form:select>
             </div>
          </spring:bind>
 

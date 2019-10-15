@@ -7,21 +7,31 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
     private String firstName;
     private String lastName;
-    private String staffPosition;
+    //private String staffPosition;
     private String password;
-    private String passwordConfirm;
+
+
     private Long roleChoose;
+
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @ManyToOne
+    @JoinColumn(name = "staffPosition_id")
+    private StaffPosition staffPosition;
 
+    @Transient
+    private String passwordConfirm;
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -54,13 +64,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getStaffPosition() {
-        return staffPosition;
-    }
 
-    public void setStaffPosition(String staffPosition) {
-        this.staffPosition = staffPosition;
-    }
 
 
 
@@ -81,8 +85,8 @@ public class User {
         this.roleChoose = roleChoose;
     }
 
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    @ManyToMany
+//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Role> getRoles() {
         return roles;
     }
@@ -91,7 +95,7 @@ public class User {
         this.roles = roles;
     }
 
-    @Transient
+
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
@@ -101,6 +105,11 @@ public class User {
     }
 
 
+    public StaffPosition getStaffPosition() {
+        return staffPosition;
+    }
 
-
+    public void setStaffPosition(StaffPosition staffPosition) {
+        this.staffPosition = staffPosition;
+    }
 }

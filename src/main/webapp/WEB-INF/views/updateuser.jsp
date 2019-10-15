@@ -34,7 +34,7 @@
 
 <body>
 
-<div class="container">
+<div class="container" >
 <spring:url value="/useris" var="userActionUrl" />
 
 	<form:form class="form-horizontal" method="POST" modelAttribute="userForma" action="${userActionUrl}">
@@ -69,15 +69,12 @@
 
 
 
-         <spring:bind path="staffPosition">
+         <spring:bind path="staffPosition_id">
                  			<div class="form-group ${status.error ? 'has-error' : ''}">
                  				<label class="col-sm-2 control-label">Staff Position</label>
                  				<div class="col-sm-10">
-                 				    <form:select path="staffPosition" type="text" class="form-control " id="staffPosition">
-                                       <form:option value="" label="--- Select ---"/>
-                                      <form:option value="IT" label="IT"/>
-                                      <form:option value="Vairuotojas" label="Vairuotojas"/>
-                                      <form:option value="Skambuciu centro darbuotojas" label="Skambuciu centro darbuotojas"/>
+                 				    <form:select path="staffPosition_id" type="text" class="form-control " id="staffPosition_id">
+										<form:options items="${listStaff}" itemValue="id" itemLabel="staffPosition"/>
                                     </form:select>
                  				</div>
                  			</div>
